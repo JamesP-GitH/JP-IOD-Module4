@@ -1,0 +1,54 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+}
+body {
+    line-height: 1.5;
+
+    -webkit-font-smoothing: antialiased;
+}
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+:root {
+    --taupe: #463f3aff;
+    --battleship-gray: #8a817cff;
+    --silver: #bcb8b1ff;
+    --isabelline: #f4f3eeff;
+}
+
+.viewWhole {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--isabelline);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    width: 40vw;
+    background-color: var(--silver);
+}
+
+.calculator,
+.operators,
+.actions,
+.result {
+    flex: 1;
+}
+
+.calculator {
+    width: 100%;
+    background-color: aqua;
+}
