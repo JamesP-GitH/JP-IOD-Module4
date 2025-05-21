@@ -39,16 +39,44 @@ select {
     height: 60vh;
     width: 40vw;
     background-color: var(--silver);
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .calculator,
 .operators,
 .actions,
 .result {
+    display: flex;
     flex: 1;
+    width: 100%;
+    align-items: center;
 }
 
+/* Inputs */
 .calculator {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+}
+.numBox {
+    flex: 1;
     width: 100%;
-    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    padding: 25px 80px;
+}
+.numLabel {
+    padding-right: 50px;
+    font-weight: 600;
+    font-size: 36px;
+    color: var(--taupe);
+}
+.numBox input {
+    font-size: 20px;
+    color: var(--taupe);
+    background-color: var(--isabelline);
+    text-align: center;
 }
