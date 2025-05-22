@@ -43,7 +43,7 @@ select {
     display: flex;
     flex-direction: column;
     height: 60vh;
-    width: 40vw;
+    min-width: 40vw;
     background-color: var(--container-bg);
     border-radius: 10px;
     padding: 10px;
@@ -80,12 +80,16 @@ select {
     font-weight: 600;
     font-size: 36px;
     color: var(--text-main);
+    white-space: nowrap;
 }
 .numBox input {
     font-size: 30px;
     color: var(--text-main);
     background-color: var(--bg-color);
     text-align: center;
+    min-width: 200px;
+    width: 400px;
+    height: 60px;
 }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -105,7 +109,7 @@ input[type="number"]::-webkit-inner-spin-button {
     flex: 1;
     background-color: var(--btn-operator);
     height: 50%;
-    min-width: 40px;
+    min-width: 65px;
     margin: 0px 20px;
     color: var(--text-main);
     font-weight: 800;
@@ -113,10 +117,15 @@ input[type="number"]::-webkit-inner-spin-button {
     border-radius: 5px;
     border: 3px solid var(--btn-secondary);
     box-shadow: 0px 1px 10px 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .operators button:active {
     background-color: var(--btn-active);
+    border: 3px solid green;
 }
 
 /* Actions */
@@ -124,6 +133,7 @@ input[type="number"]::-webkit-inner-spin-button {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     padding: 0% 10%;
 }
 
@@ -139,6 +149,10 @@ input[type="number"]::-webkit-inner-spin-button {
     border-radius: 5px;
     border: 3px solid var(--btn-secondary);
     box-shadow: 0px 1px 10px 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .actions button:active {
@@ -159,4 +173,59 @@ input[type="number"]::-webkit-inner-spin-button {
     text-align: center;
     font-size: 60px;
     font-weight: 800;
+}
+
+@media (max-width: 900px) {
+    .numBox {
+        flex-direction: column;
+        padding: 0px 40px;
+        flex: 0;
+        height: 14vh;
+        justify-content: center;
+        align-items: flex-end;
+    }
+    .actions button {
+        font-size: 50px;
+    }
+    .numBox input {
+        min-width: 200px;
+        max-width: 320px;
+        height: 50px;
+    }
+    .container {
+        min-width: 80vw;
+    }
+    .numLabel {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 580px) {
+    .numBox {
+        padding: 25px 20px;
+        margin: -5px 0px;
+    }
+    .container {
+        height: 100vh;
+    }
+    .operators {
+        padding: 0px 10px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, auto);
+    }
+    .operators button {
+        margin: 0 30px;
+        font-size: 50px;
+    }
+    .actions button {
+        font-size: 30px;
+    }
+    #resultLabel,
+    #resultOutput {
+        flex: 1;
+        text-align: center;
+        font-size: 30px;
+        font-weight: 800;
+    }
 }
