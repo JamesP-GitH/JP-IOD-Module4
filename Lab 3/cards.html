@@ -40,7 +40,15 @@
                 // include the populated template into the page
                 document.querySelector("#card-list").appendChild(template);
             }
-            addCard("My Card Title", "lorem ipsum ble bla");
+
+            const data = [
+                { name: "bob", age: 23 },
+                { name: "alice", age: 39 },
+            ];
+            // Ex2
+            data.forEach((card) => {
+                addCard(card.name, card.age);
+            });
         </script>
     </body>
 </html>
