@@ -1,0 +1,21 @@
+Target audience: 
+Horror fans who want to share thoughts, reviews, fan art, movie clips, etc.
+
+Content type: 
+Mostly text posts, images, and maybe short video clips
+
+Core features:
+- Posting (text, images, videos)
+- Viewing posts from others (feed)
+- Liking / reacting
+- Commenting on posts
+- Profiles with user’s favorite movies, bio, posts
+
+Unique niche feature ideas:
+-“Scare Meter” — rate posts or movies on a horror scale (1 to 10 chills)
+-Horror trivia or polls in the feed
+-“Watchlist” — add movies you want to watch
+
+Tone and style: 
+Dark theme with blood red, eerie shadows, maybe some subtle horror motifs.
+

@@ -1,0 +1,7 @@
+1. Login 
+2. Signup
+3. Home Feed — scroll posts
+4. Create Post — input text, upload image/video
+5. Profile — user info, favorite movies, posted content
+6. Post Details — view comments, reactions, full media
+7. Watchlist — user can add/remove movies they want to watch
