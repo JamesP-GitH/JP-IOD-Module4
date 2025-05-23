@@ -8,6 +8,8 @@
             }
             .card {
                 padding: 10px;
+                border: 2px solid black;
+                margin-top: 4px;
             }
             .card-title {
                 font-weight: 600;
@@ -31,16 +33,48 @@
         </template>
         <div id="card-list"></div>
         <script>
-            function addCard(title, text) {
+            function addCard(title, content) {
                 // clone the template
                 const template = document.getElementById("card-template").content.cloneNode(true);
                 // populate the template
                 template.querySelector(".card-title").innerText = title; // Ex1
-                template.querySelector(".card-text").innerText = text; // Ex1
+                const cardText = template.querySelector(".card-text"); // see comits for Ex1 change
+
+                // Ex3
+                if (typeof content === "string" || typeof content === "number") {
+                    // If content is string, set as innerText
+                    cardText.innerText = content;
+                } else if (content instanceof HTMLElement) {
+                    // If content is an element, clear and append
+                    cardText.innerHTML = "";
+                    cardText.appendChild(content);
+                }
+
                 // include the populated template into the page
                 document.querySelector("#card-list").appendChild(template);
             }
+            function addArtist(artist) {
+                // Add main artist card with just text content
+                addCard(artist.name, "Artist Profile");
 
+                const cardList = document.getElementById("card-list");
+                const LastCard = cardList.lastElementChild;
+                const cardText = LastCard.querySelector(".card-text");
+
+                cardText.innerHTML = "";
+
+                // Add portfolio cards with images
+                artist.portfolio.forEach((item) => {
+                    const img = document.createElement("img");
+                    img.src = item.url;
+                    img.alt = item.title;
+                    img.style.maxWidth = "250px";
+                    img.style.borderRadius = "5px";
+                    img.style.margin = "5px";
+
+                    cardText.appendChild(img);
+                });
+            }
             const data = [
                 { name: "bob", age: 23 },
                 { name: "alice", age: 39 },
@@ -49,6 +83,71 @@
             data.forEach((card) => {
                 addCard(card.name, card.age);
             });
+
+            const artists = [
+                {
+                    name: "Van Gogh",
+                    portfolio: [
+                        {
+                            title: "portrait",
+                            url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/436532/1671316/main-image",
+                        },
+                        {
+                            title: "sky",
+                            url: "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg",
+                        },
+                    ],
+                },
+                {
+                    name: "Claude Monet",
+                    portfolio: [
+                        {
+                            title: "Water Lilies",
+                            url: "https://uploads5.wikiart.org/images/claude-monet/water-lilies-1919.jpg",
+                        },
+                        {
+                            title: "Impression, Sunrise",
+                            url: "https://www.monetpaintings.org/Impression%20Sunrise%20Claude%20Monet.jpg?ezimgfmt=ng%3Awebp%2Fngcb2%2Frs%3Adevice%2Frscb2-2",
+                        },
+                    ],
+                },
+                {
+                    name: "Frida Kahlo",
+                    portfolio: [
+                        {
+                            title: "Self-Portrait with Thorn Necklace",
+                            url: "https://upload.wikimedia.org/wikipedia/en/1/1e/Frida_Kahlo_%28self_portrait%29.jpg",
+                        },
+                        {
+                            title: "The Two Fridas",
+                            url: "https://www.fridakahlo.org/assets/img/paintings/the-two-fridas.jpg",
+                        },
+                        {
+                            title: "Henry Ford Hospital",
+                            url: "https://upload.wikimedia.org/wikipedia/en/d/d9/Frida_Kahlo_painting_Henry_Ford_Hospital_1932.jpeg",
+                        },
+                    ],
+                },
+                {
+                    name: "Pablo Picasso",
+                    portfolio: [
+                        {
+                            title: "Les Demoiselles d'Avignon",
+                            url: "https://literarymovementsmanifesto.wordpress.com/wp-content/uploads/2011/01/25_picasso_les_demoiselles_davignon.jpg",
+                        },
+                        {
+                            title: "Guernica",
+                            url: "https://smarthistory.org/wp-content/uploads/2015/08/PicassoGuernica.jpg",
+                        },
+                        {
+                            title: "The Old Guitarist",
+                            url: "https://cdn.shopify.com/s/files/1/1771/4067/files/Pablo-Picasso-The-Old-Guitarist_large.jpg?v=1571112946",
+                        },
+                    ],
+                },
+            ];
+
+            artists.forEach((artist) => addArtist(artist));
         </script>
     </body>
 </html>
