@@ -9,14 +9,24 @@ function setOperator(operator, buttonElement) {
     buttonElement.classList.add("active");
 }
 
-function calculate() {
-    const num1 = parseFloat(document.getElementById("num1").value);
-    const num2 = parseFloat(document.getElementById("num2").value);
+function isValidNumber(value, max = 9999.99) {
+    const num = parseFloat(value);
+    const decimalPlaces = value.includes(".") ? value.split(".")[1].length : 0;
 
-    if (isNaN(num1) || isNaN(num2) || !currentOperator) {
-        alert("Please enter valid numbers and choose an operator.");
+    return !isNaN(num) && num <= max && decimalPlaces <= 2;
+}
+
+function calculate() {
+    const input1 = document.getElementById("num1").value;
+    const input2 = document.getElementById("num2").value;
+
+    if (!isValidNumber(input1) || !isValidNumber(input2) || !currentOperator) {
+        alert("Please enter valid numbers (max 1000, up to 2 decimal places) and select an operator.");
         return;
     }
+
+    const num1 = parseFloat(input1);
+    const num2 = parseFloat(input2);
 
     let result;
 
