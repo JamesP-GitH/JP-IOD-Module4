@@ -9,11 +9,11 @@ function setOperator(operator, buttonElement) {
     buttonElement.classList.add("active");
 }
 
-function isValidNumber(value, max = 9999.99) {
+function isValidNumber(value, max = 9999.99, min = -9999.99) {
     const num = parseFloat(value);
     const decimalPlaces = value.includes(".") ? value.split(".")[1].length : 0;
 
-    return !isNaN(num) && num <= max && decimalPlaces <= 2;
+    return !isNaN(num) && num <= max && num >= min && decimalPlaces <= 2;
 }
 
 function calculate() {
@@ -21,7 +21,7 @@ function calculate() {
     const input2 = document.getElementById("num2").value;
 
     if (!isValidNumber(input1) || !isValidNumber(input2) || !currentOperator) {
-        alert("Please enter valid numbers (max 1000, up to 2 decimal places) and select an operator.");
+        alert("Please enter valid numbers (max 9999.99, min -9999.99, up to 2 decimal places) and select an operator.");
         return;
     }
 
@@ -60,6 +60,6 @@ function reset() {
 
     currentOperator = null;
 
-    const operatorButtons = document.querySelectorAll(".operator");
+    const operatorButtons = document.querySelectorAll(".opBtn");
     operatorButtons.forEach((btn) => btn.classList.remove("active"));
 }
