@@ -1,0 +1,46 @@
+body {
+    margin: 10px;
+    height: 100vh;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+.slider {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: relative;
+    animation: slideDownUp 4s ease-in-out infinite, rotate 4s linear infinite;
+    transform-origin: center;
+}
+@keyframes slideDownUp {
+    0% {
+        top: 0;
+        background-color: red;
+        transform: rotate(0deg);
+    }
+    50% {
+        top: 400px;
+        background-color: blue;
+        transform: rotate(90deg);
+    }
+    100% {
+        top: 0;
+
+        background-color: red;
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: rotate(180deg);
+    }
+}
