@@ -84,7 +84,7 @@
             // 5)
             function getCurrentTimeIn(zone) {
                 const template = document.getElementById("answerTemplate").content.cloneNode(true);
-                timeInZone = DateTime.now().setZone(zone);
+                const timeInZone = DateTime.now().setZone(zone);
                 let displayLuxon = `The current time in ${zone} is: ${timeInZone.toFormat("ttt")} ${timeInZone.toFormat("DDDD")}`;
                 template.querySelector(".answer").innerText = displayLuxon;
                 document.querySelector("#displayLuxon").appendChild(template);
