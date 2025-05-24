@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/luxon@3.6.1/build/global/luxon.min.js"></script>
+        <title>Document</title>
+    </head>
+    <body>
+        <template id="answerTemplate">
+            <div class="answer"></div>
+        </template>
+        <h2>Luxon Date</h2>
+        <div id="displayLuxon"></div>
+        <script>
+            var DateTime = luxon.DateTime;
+            const Interval = luxon.Interval;
+
+            // 1)
+            function daysBetween(startDate) {
+                const template = document.getElementById("answerTemplate").content.cloneNode(true);
+                const endDate = DateTime.now();
+
+                const diffInDays = endDate.diff(startDate, "days").days;
+
+                // 2)
+                const i = Interval.fromDateTimes(startDate, endDate);
+                const duration = i.toDuration(["years", "months", "days"]);
+                const iYears = Math.floor(duration.years);
+                const iMonths = Math.floor(duration.months);
+                const iDays = Math.floor(duration.days);
+
+                const days = Math.floor(diffInDays);
+                const displayLuxon = `Days since ${birthdayDate.toFormat(
+                    " dd LLL yyyy "
+                )}: ${days} days, Or: ${iYears} Years, ${iMonths} Months, and ${iDays} Days`;
+                template.querySelector(".answer").innerText = displayLuxon;
+                document.querySelector("#displayLuxon").appendChild(template);
+            }
+
+            const birthdayDate = DateTime.fromISO("1999-03-31");
+            daysBetween(birthdayDate);
+
+            // 3)
+            function getCloserDate(date1, date2) {
+                const template = document.getElementById("answerTemplate").content.cloneNode(true);
+                const now = DateTime.now();
+                const diff1 = Math.abs(now.diff(date1).as("milliseconds"));
+                const diff2 = Math.abs(now.diff(date2).as("milliseconds"));
+                let displayLuxon = ``;
+
+                if (diff1 < diff2) {
+                    displayLuxon = `${date1.toFormat("DD")} is closer to Today, than ${date2.toFormat("DD")}`;
+                } else {
+                    displayLuxon = `${date2.toFormat("DD")} is closer to Today, than ${date1.toFormat("DD")}`;
+                }
+                template.querySelector(".answer").innerText = displayLuxon;
+                document.querySelector("#displayLuxon").appendChild(template);
+            }
+
+            const dateA = DateTime.fromISO("2024-12-25");
+            const dateB = DateTime.fromISO("2025-07-04");
+            getCloserDate(dateA, dateB);
+
+            // 4)
+            function compareDates(date1, date2) {
+                const template = document.getElementById("answerTemplate").content.cloneNode(true);
+                let displayLuxon = ``;
+                if (date1 < date2) {
+                    displayLuxon = `${date1.toFormat("DD")} is before ${date2.toFormat("DD")}`;
+                } else if (dateA > dateB) {
+                    displayLuxon = `${date1.toFormat("DD")} is after ${date2.toFormat("DD")}`;
+                } else {
+                    displayLuxon = `${date1.toFormat("DD")} and ${date2.toFormat("DD")} are the same date`;
+                }
+                template.querySelector(".answer").innerText = displayLuxon;
+                document.querySelector("#displayLuxon").appendChild(template);
+            }
+
+            const dateC = DateTime.fromISO("2024-04-12");
+            const dateD = DateTime.fromISO("2024-12-07");
+            compareDates(dateC, dateD);
+
+            // 5)
+            function getCurrentTimeIn(zone) {
+                const template = document.getElementById("answerTemplate").content.cloneNode(true);
+                timeInZone = DateTime.now().setZone(zone);
+                let displayLuxon = `The current time in ${zone} is: ${timeInZone.toFormat("ttt")} ${timeInZone.toFormat("DDDD")}`;
+                template.querySelector(".answer").innerText = displayLuxon;
+                document.querySelector("#displayLuxon").appendChild(template);
+            }
+
+            const londonZone = "Europe/London";
+            getCurrentTimeIn(londonZone);
+        </script>
+    </body>
+</html>
