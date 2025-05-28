@@ -34,10 +34,6 @@
                             <li id="list1" class="list-group-item h4">An item</li>
                             <li id="list2" class="list-group-item" style="font-size: small; font-weight: 300">A second item</li>
                         </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -51,13 +47,23 @@
 
         <div class="container p-4">
             <div class="row mb-4">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="categorySelect" class="form-label h5">Filter by Category</label>
                     <select class="form-select" id="categorySelect">
                         <option value="all">All Categories</option>
                     </select>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    <label for="sortSelect" class="form-label h5">Sort By</label>
+                    <select class="form-select" id="sortSelect">
+                        <option value="default">Default</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="title-asc">Name A-Z</option>
+                        <option value="title-desc">Name Z-A</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
                     <label for="searchInput" class="form-label h5">Search Products</label>
                     <input type="text" class="form-control" id="searchInput" placeholder="Search by product title..." />
                 </div>
@@ -143,36 +149,56 @@
                 }
             }
 
+            // Filter listener
+            function SortProducts(products, sortOption) {
+                const sorted = [...products]; // duplicate array
+
+                switch (sortOption) {
+                    case "price-asc":
+                        sorted.sort((a, b) => a.price - b.price);
+                        break;
+                    case "price-desc":
+                        sorted.sort((a, b) => b.price - a.price);
+                        break;
+                    case "title-asc":
+                        sorted.sort((a, b) => a.title.localeCompare(b.title));
+                        break;
+                    case "title-desc":
+                        sorted.sort((a, b) => b.title.localeCompare(a.title));
+                        break;
+                    default:
+                        break;
+                }
+
+                return sorted;
+            }
+
             const categorySelect = document.getElementById("categorySelect");
             const searchInput = document.getElementById("searchInput");
+            const sortSelect = document.getElementById("sortSelect");
 
             fetchAndRenderProducts(); // initial load
 
-            // Category selecter listener
-            categorySelect.addEventListener("change", () => {
-                const selected = categorySelect.value;
-                const filtered = selected === "all" ? allProducts : allProducts.filter((p) => p.category === selected);
-
-                // Clear before repopulate
-                document.querySelector("#card-list").innerHTML = "";
-                filtered.forEach(addCard);
-            });
-
-            // Search listener
-            searchInput.addEventListener("input", () => {
-                const query = searchInput.value.toLowerCase().trim();
+            // Filters and Sorts
+            function FilterRender() {
                 const selectedCategory = categorySelect.value;
+                const query = searchInput.value.toLowerCase().trim();
+                const sortOption = sortSelect.value;
 
                 const filtered = allProducts.filter((product) => {
-                    const matchTitle = product.title.toLowerCase().includes(query);
                     const matchCategory = selectedCategory === "all" || product.category === selectedCategory;
+                    const matchTitle = product.title.toLowerCase().includes(query);
                     return matchTitle && matchCategory;
                 });
 
-                // Clear before repopulate
+                const sorted = SortProducts(filtered, sortOption);
+
                 document.querySelector("#card-list").innerHTML = "";
-                filtered.forEach(addCard);
-            });
+                sorted.forEach(addCard);
+            }
+            categorySelect.addEventListener("change", FilterRender);
+            searchInput.addEventListener("input", FilterRender);
+            sortSelect.addEventListener("change", FilterRender);
         </script>
     </body>
 </html>
